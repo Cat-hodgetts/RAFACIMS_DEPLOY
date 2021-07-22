@@ -35,14 +35,14 @@ function Log_in() {
 
   Axios.defaults.withCredentials = true;
 
-  const register = () => {
-    Axios.post("https://rafacims-deploy.herokuapp.com/register", {
-      username: usernameReg,
-      password: passwordReg,
-    }).then((response) => {
-      console.log(response.data);
-    });
-  };
+  //const register = () => {
+    //Axios.post("https://rafacims-deploy.herokuapp.com/register", {
+     // username: usernameReg,
+      //password: passwordReg,
+   // }).then((response) => {
+    //console.log(response.data);
+   // });
+  //};
 
   const login = () => {
     Axios.post("https://rafacims-deploy.herokuapp.com/login", {
@@ -99,8 +99,6 @@ function Log_in() {
                history.push("/")
              }
            }}>Home</Button>
-           <Button>Log Out
-           </Button>
            </ButtonGroup>
          
           
@@ -142,9 +140,8 @@ function Log_in() {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Home</MenuItem>
-                <MenuItem onClick={handleClose}>Cadets</MenuItem>
-                <MenuItem onClick={handleClose}>Stock Management</MenuItem>
-                <MenuItem onClick={handleClose}>Staff Accounts</MenuItem>
+                <MenuItem onClick={handleClose}>Log Out</MenuItem>
+  
               </Menu>
               </Hidden>
               
@@ -159,64 +156,6 @@ function Log_in() {
         alignItems="center"
         spacing={1} 
       >
-
-<Grid item xs={3}>
-        <Card
-        style={
-          {
-           justifyContent: 'center',
-           display: 'inline-flex',
-           maxWidth: '300px',
-           minWidth: '190px',
-           margin: 10,
-          }
-        } 
-        >
-
-      <div 
-      className="registration"
-      style={
-        {
-
-         margin: 10 ,
-        }
-      
-      }
-      >
-        <h2>Registration</h2>
-        <TextField id={usernameTextIDs} label="Username" 
-        onChange={(e) =>{
-          setUsernameReg(e.target.value);
-        }}
-         />
-       <TextField
-          id={passwordTextIDs}
-          label="Password"
-          type="password" 
-        onChange={(e) => {
-          setPasswordReg(e.target.value)
-        }}
-        />
-        <br></br>
-      
-        <Button 
-        variant="contained" 
-        color="primary" 
-        style={
-          {
-           justifyContent: 'center',
-           display: "inline-flex",
-           margin: 12,}
-        
-        }
-        onClick ={()=>{
-          register();
-          refresh();
-
-        }}>Register</Button>
-        </div>
-        </Card>
-        </Grid>
 
         <Grid item xs={3}>
         <Card
