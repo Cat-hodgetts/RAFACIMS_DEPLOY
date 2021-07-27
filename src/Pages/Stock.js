@@ -4,11 +4,7 @@ import Axios from "axios";
 import 'fontsource-roboto';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Collapse from '@material-ui/core/Collapse';
-import { Grid, ButtonGroup, Card, Hidden, Paper} from "@material-ui/core";
+import { Grid, ButtonGroup, Card, Hidden, Paper, GridList} from "@material-ui/core";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,13 +13,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useHistory} from 'react-router-dom';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-
 
 
 
@@ -31,7 +20,7 @@ function Stock() {
   const [name, setName] = useState("");
   const [size, setSize] = useState(0);
   const [location, setLocation] = useState(0);
-  const [newLocation] = useState(0);
+  const [newLocation, setNewLocation] = useState(0);
   const [itemList, setItemList] = useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -48,9 +37,6 @@ function Stock() {
     setLoginStatus(false);
     history.push("/");
   }
-    
-
-
   const addItem = () => {
     Axios.post("http://localhost:3001/create", {
       name: name,
@@ -69,20 +55,10 @@ function Stock() {
   };
 
   const getItem = () => {
-    Axios.get("http://localhost:3001/Stores_Stock").then((response) => {
-      setItemList([
-        ...itemList,{
-        Name: name,
-        Stock: in_stock,
-        Issued: issued,
-        Total: total,
-        }
-      ]
-      );
+    Axios.get("http://localhost:3001/employees").then((response) => {
+      setItemList(response.data);
     });
   };
-
-  
 
   const updateItemLocation = (Id) => {
     Axios.put("http://localhost:3001/update", { location: newLocation, id: Id }).then(
@@ -112,8 +88,7 @@ function Stock() {
       );
     });
   };
-
-
+  
      return (
       <div className="App">
 
@@ -193,6 +168,27 @@ function Stock() {
                history.push("/")
              }
            }}>Home</MenuItem>
+                 <MenuItem onClick={()=>{
+             if(loginStatus===true){
+               history.push("/Pages/cadets")
+             }else{
+               history.push("/")
+             }
+           }}>Cadets</MenuItem>
+                 <MenuItem onClick={()=>{
+             if(loginStatus===true){
+               history.push("/Pages/stock")
+             }else{
+               history.push("/")
+             }
+           }}>Stock Management</MenuItem>
+                 <MenuItem onClick={()=>{
+             if(loginStatus===true){
+               history.push("/Pages/staff")
+             }else{
+               history.push("/")
+             }
+           }}>Staff Accounts</MenuItem>
                </Menu>
                </Hidden>
                
@@ -202,7 +198,8 @@ function Stock() {
          </Toolbar>
        </AppBar>
 
-       <h1>Add Items Below</h1>
+       <h1>Welcome back!</h1>
+       
        <div className="information">
        <Grid container
         direction="column"
