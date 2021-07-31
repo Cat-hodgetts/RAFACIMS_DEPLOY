@@ -46,6 +46,9 @@ function Log_in() {
 
   const login = () => {
     Axios.post("https://rafacims-deploy.herokuapp.com/login", {
+      headers:{
+        "Access-Control-Allow-Origin": true, 
+      },
       username: username,
       password: password,
     }).then((response) => {
