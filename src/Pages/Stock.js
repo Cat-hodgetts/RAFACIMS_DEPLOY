@@ -94,7 +94,7 @@ function Stock() {
   //This Put request changes the vale in the database one column of the item, in this case the location
 
   const deleteItem = (Id) => {
-    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/:id`).then((response) => {
+    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/:Id`).then((response) => {
       setItemList(
         itemList.filter((val) => {
           return val.id !== Id;
@@ -107,15 +107,13 @@ function Stock() {
      return (
       <div className="App">
 
-      <AppBar position="static">
+<AppBar position="static">
          <Toolbar 
          style={{
            justifyContent: 'center',
            display: "inline-flex",
-         }}
-         >
+         }}>
            <Hidden xsDown>
-       
            <ButtonGroup 
            color="inherit"
             variant="text" 
@@ -127,10 +125,14 @@ function Stock() {
                history.push("/")
              }
            }}>Home</Button>
-           
-        
+           <Button onClick={()=>{
+             if(loginStatus===true){
+               history.push("/Pages/Stock")
+             }else{
+               history.push("/")
+             }
+           }}>Add items</Button>
            </ButtonGroup>
-          
            <IconButton
                  aria-label="account of current user"
                  aria-controls="menu-appbar"
@@ -147,14 +149,12 @@ function Stock() {
                    vertical: 'top',
                    horizontal: 'center',
                  }}
-                 
                  open={open}
                  onClose={handleClose}
                >
                  <MenuItem onClick={()=>{LogOut();}}>Logout</MenuItem>
                </Menu>
                </Hidden>
- 
               <Hidden smUp>
                <IconButton
                  aria-label="more"
@@ -183,33 +183,15 @@ function Stock() {
                history.push("/")
              }
            }}>Home</MenuItem>
-                 <MenuItem onClick={()=>{
+           <MenuItem onClick={()=>{
              if(loginStatus===true){
-               history.push("/Pages/cadets")
+               history.push("/Pages/Stock")
              }else{
                history.push("/")
              }
-           }}>Cadets</MenuItem>
-                 <MenuItem onClick={()=>{
-             if(loginStatus===true){
-               history.push("/Pages/stock")
-             }else{
-               history.push("/")
-             }
-           }}>Stock Management</MenuItem>
-                 <MenuItem onClick={()=>{
-             if(loginStatus===true){
-               history.push("/Pages/staff")
-             }else{
-               history.push("/")
-             }
-           }}>Staff Accounts</MenuItem>
+           }}>Add items</MenuItem>
                </Menu>
                </Hidden>
-               
-              
-           
-           
          </Toolbar>
        </AppBar>
        {/* This long block of code is from https://material-ui.com/ and is the 'appbar' navigation bar, it uses the react router dom and the 'ProtectedRoutes.js' page to set the navigation buttons to go to the correct page and only allow if logged in. It also scales for the diferent size of browser window, switching to a 'burger' menu once the window is too small to accurately fit the text on.   */}

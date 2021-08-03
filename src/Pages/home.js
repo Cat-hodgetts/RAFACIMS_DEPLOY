@@ -368,6 +368,13 @@ const rows = [
                history.push("/")
              }
            }}>Home</MenuItem>
+           <MenuItem onClick={()=>{
+             if(loginStatus===true){
+               history.push("/Pages/Stock")
+             }else{
+               history.push("/")
+             }
+           }}>Add items</MenuItem>
                </Menu>
                </Hidden>
          </Toolbar>

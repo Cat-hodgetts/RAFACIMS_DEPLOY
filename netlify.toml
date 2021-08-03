@@ -1,3 +1,11 @@
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/login"
+  to = "/login"
+
+  [[redirects]]
+  from = "/home"
+  to = "/home"
+
+  [[redirects]]
+  from = "/Stock"
+  to = "/Stock"
