@@ -271,7 +271,12 @@ function Stock() {
 
         {itemList.map((val, key) => {
           return (
-            <div className="items">
+            <div className="items" 
+            style={{
+                overflow:'auto',
+                height: 'inherit',
+            }}
+            >
               <Card>
                 <h2>Name: {val.name}</h2>
                 <h2>Size: {val.size}</h2>
