@@ -273,13 +273,10 @@ function Stock() {
           return (
             <div className="items">
               <Card>
-                <h2>Name: {val.name}</h2></Card><Card><h2>Size: {val.size}</h2>
-                </Card>
-                <Card>
+                <h2>Name: {val.name}</h2>
+                <h2>Size: {val.size}</h2>
                 <h2>Location: {val.location}</h2>
-                </Card>
-
-               <Card>
+            
                     {/* This displays all items in the database and sets headngs for the data*/}
               <div>
                 <TextField
