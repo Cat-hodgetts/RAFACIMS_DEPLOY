@@ -46,7 +46,7 @@ function Stock() {
   //This block initialises variable and sets the login status for the home page as true, it also creates the function to logout which sets the status to false and bounces the page back to the login page.
 
   const addItem = () => {
-    Axios.post("http://localhost:3001/create", {
+    Axios.post("https://rafacims-deploy.herokuapp.com/create", {
       name: name,
       size: size,
       location: location,
@@ -65,7 +65,7 @@ function Stock() {
   //This is a Post request that sends the information from the form through the server to add in item to the database. 
 
   const getItem = () => {
-    Axios.get("http://localhost:3001/employees").then((response) => {
+    Axios.get("https://rafacims-deploy.herokuapp.com/employees").then((response) => {
       setItemList(response.data);
     });
   };
@@ -73,7 +73,7 @@ function Stock() {
   //This Get request brings up all the items in the database
 
   const updateItemLocation = (Id) => {
-    Axios.put("http://localhost:3001/update", { location: newLocation, id: Id }).then(
+    Axios.put("https://rafacims-deploy.herokuapp.com/update", { location: newLocation, id: Id }).then(
       (response) => {
         setItemList(
           itemList.map((val) => {
@@ -94,7 +94,7 @@ function Stock() {
   //This Put request changes the vale in the database one column of the item, in this case the location
 
   const deleteItem = (Id) => {
-    Axios.delete(`http://localhost:3001/delete/${Id}`).then((response) => {
+    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/${Id}`).then((response) => {
       setItemList(
         itemList.filter((val) => {
           return val.id !== Id;
