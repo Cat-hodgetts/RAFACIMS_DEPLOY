@@ -200,7 +200,12 @@ function Stock() {
        <h5>Warning: For this initial version the show items button will show every item in the database individually. For an overview of how many of each item please visit the home page</h5>
       {/*This is the text that will be displayed at the top of the page, just below the navigation */} 
        
-       <div className="information">
+       <div 
+       className="information"
+       style={{
+        overflow:'auto',
+        height: 'inherit',
+    }}>
        <Grid container
         direction="column"
         alignItems="center"
