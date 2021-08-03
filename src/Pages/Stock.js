@@ -262,9 +262,27 @@ function Stock() {
           }}
         /></Grid>
         {/* This sets the Location of the new item in the database to be whatever the user types into the text box */}
-        <Button onClick={addItem}>Add item</Button>
+        <Button 
+        variant="contained" 
+          color="primary" 
+          style={
+            {
+             justifyContent: 'center',
+             display: "inline",
+             margin: 12,}
+          
+          } onClick={addItem}>Add item</Button>
         {/* This calls the 'addItem' function when the button is pressed*/}
-        <Button onClick={getItem}>Show all items</Button>
+        <Button
+        variant="contained" 
+        color="primary" 
+        style={
+          {
+           justifyContent: 'center',
+           display: "inline",
+           margin: 12,}
+        
+        } onClick={getItem}>Show all items</Button>
         {/* This calls the 'getItem' function when the button is pressed */}
         </Paper>
         </Grid>
