@@ -93,11 +93,11 @@ function Stock() {
 
   //This Put request changes the vale in the database one column of the item, in this case the location
 
-  const deleteItem = (Id) => {
-    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/:Id`).then((response) => {
+  const deleteItem = (id) => {
+    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/${id}`).then((response) => {
       setItemList(
         itemList.filter((val) => {
-          return val.id !== Id;
+          return val.id !== id;
         })
       );
     });
