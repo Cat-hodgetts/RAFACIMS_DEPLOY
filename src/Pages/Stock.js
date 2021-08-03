@@ -13,6 +13,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import {useHistory} from 'react-router-dom';
+//These import aspects of libraries for later use 
 
 
 
@@ -22,21 +23,28 @@ function Stock() {
   const [location, setLocation] = useState(0);
   const [newLocation, setNewLocation] = useState(0);
   const [itemList, setItemList] = useState([]);
+
+  //These variables are being initialised now for later use with the form to add items to the database.
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [loginStatus, setLoginStatus] = useState(true);
-  let history = useHistory();
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  //This is the variable and function for the icon button used later in the navigation. This is from the Material UI library - https://material-ui.com/
 
+  const [loginStatus, setLoginStatus] = useState(true);
+  let history = useHistory();
   const LogOut =()=>{
     setLoginStatus(false);
     history.push("/");
   }
+
+  //This block initialises variable and sets the login status for the home page as true, it also creates the function to logout which sets the status to false and bounces the page back to the login page.
+
   const addItem = () => {
     Axios.post("http://localhost:3001/create", {
       name: name,
@@ -54,11 +62,15 @@ function Stock() {
     });
   };
 
+  //This is a Post request that sends the information from the form through the server to add in item to the database. 
+
   const getItem = () => {
     Axios.get("http://localhost:3001/employees").then((response) => {
       setItemList(response.data);
     });
   };
+
+  //This Get request brings up all the items in the database
 
   const updateItemLocation = (Id) => {
     Axios.put("http://localhost:3001/update", { location: newLocation, id: Id }).then(
@@ -79,6 +91,8 @@ function Stock() {
     );
   };
 
+  //This Put request changes the vale in the database one column of the item, in this case the location
+
   const deleteItem = (Id) => {
     Axios.delete(`http://localhost:3001/delete/${Id}`).then((response) => {
       setItemList(
@@ -88,6 +102,7 @@ function Stock() {
       );
     });
   };
+  //This allows the user to delete items from the database
   
      return (
       <div className="App">
@@ -197,8 +212,11 @@ function Stock() {
            
          </Toolbar>
        </AppBar>
+       {/* This long block of code is from https://material-ui.com/ and is the 'appbar' navigation bar, it uses the react router dom and the 'ProtectedRoutes.js' page to set the navigation buttons to go to the correct page and only allow if logged in. It also scales for the diferent size of browser window, switching to a 'burger' menu once the window is too small to accurately fit the text on.   */}
 
-       <h1>Welcome back!</h1>
+       <h1>Add an item here!</h1>
+       <h5>Warning: For this initial version the show items button will show every item in the database individually. For an overview of how many of each item please visit the home page</h5>
+      {/*This is the text that will be displayed at the top of the page, just below the navigation */} 
        
        <div className="information">
        <Grid container
@@ -219,6 +237,7 @@ function Stock() {
             setName(event.target.value);
           }}
         />
+        {/* This sets the name of the new item in the database to be whatever the user types into the text box*/}
         </Grid>
         <Grid item xs={12}>
         <TextField
@@ -231,6 +250,7 @@ function Stock() {
           }}
         />
         </Grid>
+         {/* This sets the Size of the new item in the database to be whatever the user types into the text box*/}
         
         <Grid item xs={12}>
         <TextField
@@ -241,12 +261,13 @@ function Stock() {
             setLocation(event.target.value);
           }}
         /></Grid>
+        {/* This sets the Location of the new item in the database to be whatever the user types into the text box */}
+        <Button onClick={addItem}>Add item</Button>
+        {/* This calls the 'addItem' function when the button is pressed*/}
+        <Button onClick={getItem}>Show all items</Button>
+        {/* This calls the 'getItem' function when the button is pressed */}
         </Paper>
         </Grid>
-        <Button onClick={addItem}>Add Items</Button>
-      </div>
-      <div className="Items">
-        <Button onClick={getItem}>Show Items</Button>
 
         {itemList.map((val, key) => {
           return (
@@ -259,6 +280,7 @@ function Stock() {
                 </Card>
 
                <Card>
+                    {/* This displays all items in the database and sets headngs for the data*/}
               <div>
                 <TextField
                   type="text"
@@ -267,6 +289,7 @@ function Stock() {
                     setNewLocation(event.target.value);
                   }}
                 />
+                 {/* This sets the new location of the item in the database to be whatever the user types into the text box*/}
                 <Button
                   onClick={() => {
                     updateItemLocation(val.id);
@@ -275,6 +298,7 @@ function Stock() {
                   {" "}
                   Update
                 </Button>
+                 {/* This calls the 'updateItemLocation function when pressed*/}
 
                 <Button
                   onClick={() => {
@@ -283,6 +307,7 @@ function Stock() {
                 >
                   Delete
                 </Button>
+                {/* This calls the 'deleteItem' function when pressed */}
 
               </div>
               </Card>
@@ -298,3 +323,4 @@ function Stock() {
 
 
  export default Stock;
+ //This is the final line and closes the app and exports for display on the front end. 

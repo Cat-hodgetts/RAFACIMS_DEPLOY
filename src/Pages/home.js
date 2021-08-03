@@ -26,8 +26,10 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import {useHistory} from 'react-router-dom';
 import { Grid, ButtonGroup, Card, Hidden} from "@material-ui/core";
+//These import aspects of libraries for later use 
 
 function Home(){
+  //This is the the start of the app and encompasses all othe code for the react app
 
 const [WWMtotal, setWWMTotal]=useState([])
 const [WWFtotal, setWWFTotal]=useState([])
@@ -70,6 +72,8 @@ const [TieSissued, setTieSIssued]=useState([])
 const [TieLissued, setTieLIssued]=useState([])
 const [Bertissued, setBerIssued]=useState([])
 
+//This is a list of variables that are set up to be used in the stock table
+
 
 useEffect(()=>{
   Axios.get("https://rafacims-deploy.herokuapp.com/Total")
@@ -87,6 +91,7 @@ useEffect(()=>{
     setBerTotal(resp.data[9].TotalStock)
   })
 },[])
+//This is a get request from front end to the server to get the information from the 'total' function, it sets the values of the variables earlier initialised to be the total for each item with the same name.
 
 
 useEffect(()=>{
@@ -104,7 +109,7 @@ useEffect(()=>{
     setBerStores(resp.data[9].StoresStock)
   })
 },[])
-console.log(Troustores)
+//This is a get request from front end to the server to get the information from the 'Stores' function, it sets the values of the variables earlier initialised to be the total for each item that has teh location as 'stores' with the same name.
 
 useEffect(()=>{
   Axios.get("https://rafacims-deploy.herokuapp.com/Issued")
@@ -122,7 +127,7 @@ useEffect(()=>{
     setBerIssued(resp.data[9].IssuedStock)
   })
 },[])
-//console.log(issued)
+//This is a get request from front end to the server to get the information from the 'Issued' function, it sets the values of the variables earlier initialised to be the total of each item that is not in stores for each item with the same 
 
 useEffect(()=>{
   Axios.get("https://rafacims-deploy.herokuapp.com/Sizes")
@@ -141,8 +146,17 @@ useEffect(()=>{
   })
 },[])
 
+//This is a get request from front end to the server to get the information from the 'Sizes' function, it sets the values of the variables earlier initialised to be the total for each item with the same. This code is WIP as it is a future feature o teh home page havng more information about the stock level of specific sizes
+
 const [loginStatus, setLoginStatus] = useState(true);
 let history = useHistory();
+const LogOut =()=>{
+  setLoginStatus(false);
+  history.push("/");
+}
+
+//This block initialises variable and sets the login status for the home page as true, it also creates the function to logout which sets the status to false and bounces the page back to the login page.
+
 const [anchorEl, setAnchorEl] = React.useState(null);
 const open = Boolean(anchorEl);
 const handleMenu = (event) => {
@@ -151,6 +165,9 @@ const handleMenu = (event) => {
 const handleClose = () => {
   setAnchorEl(null);
 };
+//This is the variable and function for the icon button used later in the navigation. This is from the Material UI library - https://material-ui.com/
+
+
 const useRowStyles = makeStyles({
   root: {
     '& > *': {
@@ -158,10 +175,9 @@ const useRowStyles = makeStyles({
     },
   },
 });
-const LogOut =()=>{
-  setLoginStatus(false);
-  history.push("/");
-}
+//this is code from Material UI for the styling of the table - https://material-ui.com/
+
+
 
 
 
@@ -177,11 +193,15 @@ const createData = (name, stores, issued, total )=>{
   };
 }
 
+//This code sets up the data that will be displayed in the table - originally from https://material-ui.com/ edited to fit this project. 
+
 
 const Row = (props)=>{
   const { row } = props;
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
+
+  //Code from https://material-ui.com/ that creates the necessary settings for the rows, it also initialises the ablity to 'open' and 'close' which will be used in the future for the drop down sectin with specific size info.
 
   return (
     <React.Fragment>
@@ -234,6 +254,7 @@ const Row = (props)=>{
 
 
 }
+//This is a react fragment, used for returning multiple elements, that contains the table displayed on the home page. Using the 'Rows' function from before and the adding in some of the previously defined variables to populate the table. 
 
 Row.propTypes = {
   row: PropTypes.shape({
@@ -251,6 +272,7 @@ Row.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
 };
+//Here the rows of the table are set up to get data from the variables and sets the data type to correspond to the correct data coming in from the database. 
 
 
 const rows = [
@@ -265,6 +287,7 @@ const rows = [
   createData('Tie (Long)', TieLstores, TieLissued ,TieLtotal), 
   createData('Beret', Berstores, Bertissued, Bertotal),
 ];
+//This section sets the name of each row and the data displayed for each row to be the variables defined before as the information from the SQL queries by the server. 
 
   return (
     <div className="App">
@@ -274,10 +297,8 @@ const rows = [
          style={{
            justifyContent: 'center',
            display: "inline-flex",
-         }}
-         >
+         }}>
            <Hidden xsDown>
-       
            <ButtonGroup 
            color="inherit"
             variant="text" 
@@ -296,10 +317,7 @@ const rows = [
                history.push("/")
              }
            }}>Add items</Button>
-           
-        
            </ButtonGroup>
-          
            <IconButton
                  aria-label="account of current user"
                  aria-controls="menu-appbar"
@@ -316,14 +334,12 @@ const rows = [
                    vertical: 'top',
                    horizontal: 'center',
                  }}
-                 
                  open={open}
                  onClose={handleClose}
                >
                  <MenuItem onClick={()=>{LogOut();}}>Logout</MenuItem>
                </Menu>
                </Hidden>
- 
               <Hidden smUp>
                <IconButton
                  aria-label="more"
@@ -354,14 +370,13 @@ const rows = [
            }}>Home</MenuItem>
                </Menu>
                </Hidden>
-               
-              
-           
-           
          </Toolbar>
        </AppBar>
+{/* This long block of code is from https://material-ui.com/ and is the 'appbar' navigation bar, it uses the react router dom and the 'ProtectedRoutes.js' page to set the navigation buttons to go to the correct page and only allow if logged in. It also scales for the diferent size of browser window, switching to a 'burger' menu once the window is too small to accurately fit the text on.   */}
        <h1>Welcome Back!</h1>
        <h3>Here's an overview of the current stock</h3>
+
+      {/* These are heading text that will appear on the screen.*/}
        <Card>
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -385,4 +400,6 @@ const rows = [
     </div>
   );
 };
+{/* This is simply the final stage of displaying the table, using the other code block from earlier. It sets the headings for the table and the info to be pulled from previous code block. Again sourced from https://material-ui.com/ and edited to suit the project */}
 export default Home;
+//This is the final line and closes the app and exports for display on the front end. 
