@@ -279,7 +279,6 @@ function Stock() {
             <div className="items" 
             style={{
                 overflow:'auto',
-                height: 'inherit',
             }}
             >
               <Card>
