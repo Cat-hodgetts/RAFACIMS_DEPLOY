@@ -65,7 +65,7 @@ function Stock() {
   //This is a Post request that sends the information from the form through the server to add in item to the database. 
 
   const getItem = () => {
-    Axios.get("https://rafacims-deploy.herokuapp.com/employees").then((response) => {
+    Axios.get("https://rafacims-deploy.herokuapp.com/items").then((response) => {
       setItemList(response.data);
     });
   };
@@ -94,7 +94,7 @@ function Stock() {
   //This Put request changes the vale in the database one column of the item, in this case the location
 
   const deleteItem = (Id) => {
-    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/${Id}`).then((response) => {
+    Axios.delete(`https://rafacims-deploy.herokuapp.com/delete/:id`).then((response) => {
       setItemList(
         itemList.filter((val) => {
           return val.id !== Id;
